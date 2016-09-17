@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.board {
+				display: flex;
+				width: 600px;
+				height: 600px;
+				flex-direction: row;
+				flex-wrap: wrap;;
+				justify-content: flex-start;
+				padding: 20px;
+			}
+			.square {
+				height: 200px;
+				width: 200px;
+				box-sizing: border-box;
+				border: 5px solid orange;
+				font-size: 5em;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.square:hover {
+				background-color: green;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="render-target">
+
+		</div>
+
+		<script>
+			var gameState = {
+				player_one_symbol: 'X',
+				player_two_symbol: 'O',
+				currentTurn: 'X',
+				board: [
+					"","","","","","","","",""
+				]
+			};
+
+			function render(state) {
+				return (
+					document.querySelector(".render-target").innerHTML =
+					"<div class='board'>" +
+					"<div class='square' data-square-id='0'>" + state.board[0] + "</div>" +
+					"<div class='square' data-square-id='1'>" + state.board[1] + "</div>" +
+					"<div class='square' data-square-id='2'>" + state.board[2] + "</div>" +
+					"<div class='square' data-square-id='3'>" + state.board[3] + "</div>" +
+					"<div class='square' data-square-id='4'>" + state.board[4] + "</div>" +
+					"<div class='square' data-square-id='5'>" + state.board[5] + "</div>" +
+					"<div class='square' data-square-id='6'>" + state.board[6] + "</div>" +
+					"<div class='square' data-square-id='7'>" + state.board[7] + "</div>" +
+					"<div class='square' data-square-id='8'>" + state.board[8] + "</div>" +
+					"</div>"
+				);
+			}
+
+			render(gameState);
+
+			var board = document.querySelector('.board');
+			board.addEventListener('click', function(e) {
+				var squareIndex = parseInt(e.target.dataset['squareId'], 10);
+				console.log(squareIndex);
+				gameState.board[squareIndex] = gameState.currentTurn;
+				gameState.currentTurn = gameState.currentTurn === gameState.player_one_symbol ? gameState.player_two_symbol : gameState.player_one_symbol;
+				render(gameState);
+			})
+
+		</script>
+	</body>
+</html>
